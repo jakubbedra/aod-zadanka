@@ -37,7 +37,7 @@ public class Main {
                 for (String ip2 : interpunctionAndWhiteSpace) {
                     String word = ip2 + w + ip;
                     StringBuilder sb = new StringBuilder();
-                    sb.append(ip);
+                    sb.append(ip2);
                     sb.append(word.charAt(1));
                     sb.append("*".repeat(Math.max(0, w.length() - 2)));
                     sb.append(word.charAt(w.length()));
@@ -45,15 +45,30 @@ public class Main {
                     String censoredWord = sb.toString();
                     sentence = sentence.replace(word, censoredWord);
                 }
-                // big letter
+                // no interpunction
                 String word = w + ip;
                 StringBuilder sb = new StringBuilder();
-                sb.append((word.charAt(0)+"").toUpperCase());
                 sb.append(word.charAt(0));
                 sb.append("*".repeat(Math.max(0, w.length() - 2)));
-                sb.append(word.charAt(w.length()));
+                sb.append(word.charAt(w.length() - 1));
                 sb.append(ip);
                 String censoredWord = sb.toString();
+                sentence = sentence.replace(word, censoredWord);
+
+                // big letter
+                StringBuilder wordUpperCase = new StringBuilder();
+                wordUpperCase.append((w.charAt(0) + "").toUpperCase());
+                for (int i = 1; i < w.length(); i++) {
+                    wordUpperCase.append(w.charAt(i));
+                }
+                word = wordUpperCase.toString() + ip;
+
+                sb = new StringBuilder();
+                sb.append((word.charAt(0) + "").toUpperCase());
+                sb.append("*".repeat(Math.max(0, w.length() - 2)));
+                sb.append(word.charAt(w.length() - 1));
+                sb.append(ip);
+                censoredWord = sb.toString();
                 sentence = sentence.replace(word, censoredWord);
             }
         }
